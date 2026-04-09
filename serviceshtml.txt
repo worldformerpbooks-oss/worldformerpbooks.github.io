@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WORLDFORMERPBOOKS - Excel, Google Sheets & ERP Solutions</title>
+
+    <? var BASE = ScriptApp.getService().getUrl(); ?>
+
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { 
+        font-family: Arial, sans-serif; 
+        background-color: #f8f9fa; 
+        color: #333; 
+        line-height: 1.6;
+      }
+      a { text-decoration: none; }
+
+      header { 
+        background-color: #fff; 
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+        position: sticky; 
+        top: 0; 
+        z-index: 1000; 
+        padding: 12px 0;
+      }
+      .nav-container { 
+        max-width: 1100px; margin: auto; 
+        display: flex; flex-direction: column;
+        align-items: center; 
+      }
+
+      .header-top-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 20px;
+      }
+
+      .header-logo-img { height: 100px; width: auto; }
+      .text-logo {
+        font-size: 24px;
+        font-weight: 800;
+        color: #2c3e50;
+        letter-spacing: -0.5px;
+        text-align: right;
+        white-space: nowrap;
+      }
+      .text-logo span { color: #2980b9; }
+
+      nav { 
+        display: flex; 
+        justify-content: center; 
+        gap: 25px; 
+        margin-top: 15px;
+        flex-wrap: wrap;
+      }
+      nav a { color: #555; font-weight: 500; transition: 0.3s; font-size: 15px; }
+      nav a:hover { color: #2980b9; }
+
+      .hero {
+        background: linear-gradient(135deg, #ffffff 0%, #f4f7f6 100%);
+        padding: 60px 20px;
+        text-align: center;
+        border-bottom: 1px solid #e1e4e8;
+      }
+      .hero-content { max-width: 1100px; margin: auto; }
+      .hero h1 {
+        font-size: 42px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+      .hero h1 span { color: #2980b9; }
+      .hero p.intro { font-size: 18px; color: #555; margin-bottom: 50px; }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 20px;
+        text-align: left;
+        align-items: stretch; 
+      }
+
+      .service-card {
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        border: 1px solid #e1e4e8;
+        transition: 0.3s;
+        border-top: 4px solid #2980b9;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        border-top-color: #e67e22;
+      }
+      .service-card h3 { font-size: 20px; color: #2c3e50; margin-bottom: 15px; }
+      .service-card p { color: #666; font-size: 15px; margin-bottom: 15px; }
+      
+      ul.check-list { list-style: none; }
+      ul.check-list li {
+        position: relative;
+        padding-left: 25px;
+        margin-bottom: 8px;
+        color: #444;
+        font-size: 15px;
+      }
+      ul.check-list li:before {
+        content: "✔";
+        color: #27ae60;
+        position: absolute;
+        left: 0;
+        font-weight: bold;
+      }
+
+      .feature-label {
+        display: block;
+        background-color: #e8f4fc;
+        color: #2980b9;
+        padding: 10px 15px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 20px;
+        border: 1px solid #d1e9f6;
+      }
+
+      .card-logo-container {
+        margin-top: auto; 
+        text-align: center; 
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+      }
+      .card-logo { height: 150px; width: auto; object-fit: contain; }
+
+      .audience-strip {
+        background-color: #2980b9;
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+        margin-top: 60px; 
+      }
+      .audience-strip p { font-size: 18px; font-weight: 500; max-width: 800px; margin: auto; }
+
+      footer { background: #2c3e50; color: #bdc3c7; padding: 40px 20px; text-align: center; font-size: 14px; }
+      .footer-links { margin-bottom: 20px; }
+      .footer-links a { color: #fff; margin: 0 15px; font-weight: 600; }
+      .footer-contact { margin-bottom: 20px; font-size: 15px; }
+      .footer-contact a { color: #25D366; font-weight: bold; }
+      .footer-contact a:hover { text-decoration: underline; }
+
+      @media (max-width: 768px) {
+        .hero h1 { font-size: 28px; }
+        .services-grid { grid-template-columns: 1fr; }
+        .card-logo { height: 120px; } 
+        .header-logo-img { height: 70px; }
+        .text-logo { font-size: 17px; }
+        nav { gap: 15px; font-size:14px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header>
+      <div class="nav-container">
+        <div class="header-top-row">
+          <img src="https://z-cdn-media.chatglm.cn/files/ba329742-3157-4b8c-8306-861afa01a3a9.jpg?auth_key=1873341678-21fb15d46bb14345857b3b5664ab4d6f-0-4e94c215a04dfe8e806ece0b934c9e1b" alt="WORLD FORM ERP BOOKS" class="header-logo-img">
+          <div class="text-logo">WORLDFORM<span>ERPBOOKS</span></div>
+        </div>
+        <nav>
+          <a href="<?= BASE ?>">Home</a>
+          <a href="<?= BASE ?>?page=Services">Services</a>
+          <a href="<?= BASE ?>?page=Templates">Templates</a>
+          <a href="<?= BASE ?>?page=Contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Professional Excel & Google Sheet Templates <br> <span>& ERP Solutions</span></h1>
+        <p class="intro">
+          At World Form ERP Books, we provide powerful Excel and Google Sheet solutions tailored for modern businesses. 
+          Whether you're just starting out or managing complex operations, our templates are designed to simplify your workflow.
+        </p>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>Ready-to-Use Templates</h3>
+            <p>Perfect for bookkeeping, bank reconciliation — available in both Excel and Google Sheets.</p>
+            <ul class="check-list">
+              <li>Instant download access</li>
+              <li>Pre-built formulas & logic</li>
+              <li>Clean & professional layout</li>
+              <li>Compatible with Excel & Google Sheets</li>
+              <li>Easy data entry design</li>
+              <li>Print-ready formatting</li>
+            </ul>
+            <div class="card-logo-container">
+              <div class="feature-label">Step-by-step instructions included</div>
+              <img class="card-logo" src="https://z-cdn-media.chatglm.cn/files/aa927d5d-353f-4d27-aa15-23f8a74523d3.png?auth_key=1873336651-f6e0913cc3494b85b5ff18a1fefc9f3a-0-811a7df2bdeb64a156c66090a7aa1285" alt="Excel">
+            </div>
+          </div>
+
+          <div class="service-card">
+            <h3>Customized Templates</h3>
+            <p>Need something specific? We design custom Excel and Google Sheet templates to match your unique business needs.</p>
+            <ul class="check-list">
+              <li>Tailored to your specific requirements</li>
+              <li>Advanced dashboard creation</li>
+              <li>Automated reporting tools</li>
+              <li>Business branding included</li>
+              <li>Error-checking logic built-in</li>
+              <li>Integration with ERP/CRM data</li>
+            </ul>
+            <div class="card-logo-container">
+              <div class="feature-label">Dedicated support & updates</div>
+              <img class="card-logo" src="https://z-cdn-media.chatglm.cn/files/d8dc25bb-6c05-417d-94b2-6c007082cdd4.jpg?auth_key=1873336956-5791b1b8c25a42969dd2a4be9daa13a0-0-5b7cdb11baa83837a72c59edd7ae7d15" alt="Google Sheets">
+            </div>
+          </div>
+
+          <div class="service-card">
+            <h3>Bookkeeping Support</h3>
+            <p>Comprehensive bookkeeping services to keep your financial data accurate, organized, and ready for analysis.</p>
+            <ul class="check-list">
+              <li>Accurate Data Entry & Recording</li>
+              <li>Bank Reconciliation Services</li>
+              <li>Financial Statement Preparation</li>
+              <li>Accounts Payable/Receivable Management</li>
+              <li>Payroll Processing Assistance</li>
+              <li>Tax Compliance & Reporting</li>
+              <li>Software Migration Support</li>
+              <li>Invoicing & Billing Management</li>
+              <li>Expense Tracking & Categorization</li>
+              <li>Monthly Closing & Reporting</li>
+            </ul>
+            <div class="card-logo-container">
+              <img style="height: 120px; width: auto; display: block; margin: 0 auto 15px auto;" src="https://z-cdn-media.chatglm.cn/files/4b92c89e-a8da-407c-8c87-d6093358838e.png?auth_key=1873325517-38235711f07346579f92b1d7ca717fe3-0-cb5a196e866ff7bfd42031abbe2a3752" alt="Tally">
+              <img style="height: 120px; width: auto; display: block; margin: 0 auto;" src="https://z-cdn-media.chatglm.cn/files/0ed29539-9e3a-4a02-b7e9-04eecc0ebda3.jpg?auth_key=1873328948-f3345d6b63ef4694bfb7e6d5063e7cbe-0-505692c4fe0867fd8eba8d135a1882a6" alt="QuickBooks">
+            </div>
+          </div>
+
+          <div class="service-card">
+            <h3>ERP Implementation / CRM Setup</h3>
+            <p>Streamline your business operations with our expert ERP configuration services. We ensure seamless data migration and user training for your team.</p>
+            <ul class="check-list">
+              <li>System Analysis & Planning</li>
+              <li>Module Configuration & Setup</li>
+              <li>Data Migration & Import</li>
+              <li>User Role & Permission Setup</li>
+              <li>Custom Report Generation</li>
+              <li>Workflow Automation</li>
+              <li>Third-Party Integration</li>
+              <li>User Training & Support</li>
+              <li>Backup & Security Setup</li>
+              <li>Post-Implementation Support</li>
+            </ul>
+            <div class="card-logo-container">
+              <img style="height: 100px; width: auto; display: block; margin: 0 auto 10px auto;" src="https://z-cdn-media.chatglm.cn/files/ae9256ef-aece-4d0a-990f-531e76048971.png?auth_key=1873328170-6b6b397fc57d47a0af8095ed9a2a583e-0-abed197edacaf5912296a4263d4a1d45" alt="ERPNext">
+              <img style="height: 100px; width: auto; display: block; margin: 0 auto 10px auto;" src="https://z-cdn-media.chatglm.cn/files/9e6ff624-fb17-4a48-8dc3-e8069f208276.jpg?auth_key=1873329358-e1aaf962053a4e929c1ce0d589aefab7-0-4bdc30bde695cb255332ee2f2f6ee14c" alt="Odoo">
+              <img style="height: 100px; width: auto; display: block; margin: 0 auto;" src="https://z-cdn-media.chatglm.cn/files/afecf159-8c0b-461b-8879-b524d3b860cf.jpg?auth_key=1873329358-54cfc8e9bc594b75bb8bebd18acab311-0-76d55d70a5bc4375d47531816f6a48fb" alt="Zoho">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="audience-strip">
+      <p>Ideal for accountants, business owners, and ERP professionals looking to save time and reduce errors.</p>
+    </section>
+
+    <footer>
+      <div class="footer-links">
+        <a href="<?= BASE ?>">Home</a>
+        <a href="<?= BASE ?>?page=Services">Services</a>
+        <a href="<?= BASE ?>?page=Templates">Templates</a>
+        <a href="<?= BASE ?>?page=Contact">Contact</a>
+      </div>
+      <div class="footer-contact">
+        <p><strong>Contact:</strong> worldformerpbooks@gmail.com</p>
+        <p><strong>WhatsApp:</strong> <a href="https://wa.me/243906029629" target="_blank">WORLDFORMERPBOOKS</a></p>
+      </div>
+      <p style="margin-top: 20px;">&copy; 2025 WORLDFORMERPBOOKS. All Rights Reserved.</p>
+    </footer>
+
+  </body>
+</html>
